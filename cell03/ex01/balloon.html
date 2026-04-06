@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        /* CSS: สร้างลูกโป่ง */
+        #balloon {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            border-radius: 50%; /* ทำให้เป็นวงกลมสมบูรณ์ */
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease; /* เพิ่มความนุ่มนวลเวลาเปลี่ยนขนาดและสี */
+            user-select: none; /* ป้องกันการคลุมแถบสีเวลาคลิกรัวๆ */
+        }
+    </style>
+</head>
+<body>
+    <div id="balloon"></div>
+    <script>
+        const balloon = document.getElementById('balloon');
+        // สถานะเริ่มต้น
+        let currentSize = 200;
+        const colors = ['red', 'green', 'blue'];
+        let colorIndex = 0;
+        // ฟังก์ชันสำหรับอัปเดตหน้าตาของลูกโป่ง
+        function updateBalloon() {
+            balloon.style.width = currentSize + 'px';
+            balloon.style.height = currentSize + 'px';
+            balloon.style.backgroundColor = colors[colorIndex];
+        }
+        // 1. เมื่อคลิก (Click): เพิ่มขนาด 10px และเปลี่ยนสีไปข้างหน้า
+        balloon.addEventListener('click', () => {
+            currentSize += 10;
+            // ตรวจสอบการระเบิด (เกิน 420px)
+            if (currentSize > 420) {
+                currentSize = 200;
+            }
+            // เปลี่ยนสีตามลำดับ: red -> green -> blue -> red
+            colorIndex = (colorIndex + 1) % colors.length;
+            updateBalloon();
+        });
+        // 2. เมื่อเอาเมาส์ออก (Mouse Leave): ลดขนาด 5px และเปลี่ยนสีย้อนกลับ
+        balloon.addEventListener('mouseleave', () => {
+            // ลดขนาดแต่ห้ามต่ำกว่า 200px
+            if (currentSize > 200) {
+                currentSize -= 5;
+            }
+            // เปลี่ยนสีย้อนกลับ: blue -> green -> red -> blue
+            colorIndex = (colorIndex - 1 + colors.length) % colors.length;
+            updateBalloon();
+        });
+    </script>
+</body>
+</html>
