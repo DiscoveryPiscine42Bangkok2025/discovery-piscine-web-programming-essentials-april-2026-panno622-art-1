@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<link rel="stylesheet" href="backgrooud.css">
+    <head>
+    <body>
+<div class="button">
+    <button id="colorBtn">Click me pls!</button>
+</div>
+<script>
+    // 1. อ้างอิงถึงปุ่มในหน้า HTML โดยใช้ ID
+    const btn = document.getElementById('colorBtn');
+
+    // 2. ฟังก์ชันสำหรับสร้างสีแบบสุ่ม (Hex Color)
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            // สุ่มตัวเลข 0-15 เพื่อไปดึงตัวอักษรจาก letters
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // 3. กำหนดเหตุการณ์ (Event) เมื่อมีการคลิกปุ่ม
+    btn.addEventListener('click', function() {
+        const newColor = getRandomColor();
+        
+        // เปลี่ยนสีพื้นหลังของ body
+        document.body.style.backgroundColor = newColor;
+    });
+</script>
+    </body>
+</html>
