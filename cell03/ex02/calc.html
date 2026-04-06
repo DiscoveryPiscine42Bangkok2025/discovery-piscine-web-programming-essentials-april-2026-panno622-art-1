@@ -1,0 +1,107 @@
+OCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="text"], select {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="calculatorForm">
+        <input type="text" id="left" placeholder="Left operand" required>
+        <select id="operator" required>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input type="text" id="right" placeholder="Right operand" required>
+        <input type="submit" value="Try me!">
+    </form>
+
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const left = document.getElementById('left').value;
+            const right = document.getElementById('right').value;
+            const operator = document.getElementById('operator').value;
+
+            // Check if inputs are positive integers
+            if (!/^\d+$/.test(left) || !/^\d+$/.test(right) || parseInt(left) < 0 || parseInt(right) < 0) {
+                alert('Error :(');
+                console.log('Error :(');
+                return;
+            }
+
+            const numLeft = parseInt(left);
+            const numRight = parseInt(right);
+            let result;
+
+            if ((operator === '/' || operator === '%') && numRight === 0) {
+                alert("It’s over 9000!");
+                console.log("It’s over 9000!");
+                return;
+            }
+
+            switch (operator) {
+                case '+':
+                    result = numLeft + numRight;
+                    break;
+                case '-':
+                    result = numLeft - numRight;
+                    break;
+                case '*':
+                    result = numLeft * numRight;
+                    break;
+                case '/':
+                    result = numLeft / numRight;
+                    break;
+                case '%':
+                    result = numLeft % numRight;
+                    break;
+            }
+
+            alert(result);
+            console.log(result);
+        });
+
+        // Alert every 30 seconds
+        setInterval(function() {
+            alert('Please, use me...');
+        }, 30000);
+    </script>
+</body>
+</html>
