@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator (jQuery Edition)</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="text"], select {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="calculatorForm">
+        <input type="text" id="left" placeholder="Left operand" required>
+        <select id="operator" required>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input type="text" id="right" placeholder="Right operand" required>
+        <input type="submit" value="Try me!">
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            // 2. ใช้ jQuery ดักจับเหตุการณ์ submit ของฟอร์ม
+            $('#calculatorForm').on('submit', function(event) {
+                event.preventDefault(); // ป้องกันหน้าเว็บรีโหลด
+
+                // 3. ดึงค่าจาก input ด้วย .val()
+                const left = $('#left').val();
+                const right = $('#right').val();
+                const operator = $('#operator').val();
+
+                // ตรวจสอบว่าเป็นตัวเลขจำนวนเต็มบวก (Regex เหมือนเดิม)
+                if (!/^\d+$/.test(left) || !/^\d+$/.test(right)) {
+                    alert('Error :(');
+                    console.log('Error :(');
+                    return;
+                }
+
+                const numLeft = parseInt(left);
+                const numRight = parseInt(right);
+                let result;
+
+                // ตรวจสอบการหารด้วยศูนย์
+                if ((operator === '/' || operator === '%') && numRight === 0) {
+                    alert("It’s over 9000!");
+                    console.log("It’s over 9000!");
+                    return;
+                }
+
+                // คำนวณผลลัพธ์
+                switch (operator) {
+                    case '+': result = numLeft + numRight; break;
+                    case '-': result = numLeft - numRight; break;
+                    case '*': result = numLeft * numRight; break;
+                    case '/': result = numLeft / numRight; break;
+                    case '%': result = numLeft % numRight; break;
+                }
+
+                alert(result);
+                console.log(result);
+            });
+
+            // 4. ตั้งเวลาแจ้งเตือนทุก 30 วินาที
+            setInterval(function() {
+                alert('Please, use me...');
+            }, 30000);
+        });
+    </script>
+</body>
+</html>

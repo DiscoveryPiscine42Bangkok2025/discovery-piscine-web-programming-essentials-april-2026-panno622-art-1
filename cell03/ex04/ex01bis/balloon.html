@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #balloon {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="balloon"></div>
+
+    <script>
+        $(document).ready(function() {
+            // อ้างอิงถึงตัวลูกโป่งด้วย jQuery
+            const $balloon = $('#balloon');
+            
+            // สถานะเริ่มต้น
+            let currentSize = 200;
+            const colors = ['red', 'green', 'blue'];
+            let colorIndex = 0;
+
+            // ฟังก์ชันอัปเดตหน้าตา (ใช้ Method .css ของ jQuery)
+            function updateBalloon() {
+                $balloon.css({
+                    'width': currentSize + 'px',
+                    'height': currentSize + 'px',
+                    'background-color': colors[colorIndex]
+                });
+            }
+
+            // 1. เมื่อคลิก (Click): เพิ่มขนาด 10px และเปลี่ยนสีไปข้างหน้า
+            $balloon.on('click', function() {
+                currentSize += 10;
+                
+                // ตรวจสอบการระเบิด
+                if (currentSize > 420) {
+                    currentSize = 200;
+                }
+
+                colorIndex = (colorIndex + 1) % colors.length;
+                updateBalloon();
+            });
+
+            // 2. เมื่อเอาเมาส์ออก (Mouse Leave): ลดขนาด 5px และเปลี่ยนสีย้อนกลับ
+            $balloon.on('mouseleave', function() {
+                if (currentSize > 200) {
+                    currentSize -= 5;
+                }
+
+                // เปลี่ยนสีย้อนกลับ
+                colorIndex = (colorIndex - 1 + colors.length) % colors.length;
+                updateBalloon();
+            });
+        });
+    </script>
+</body>
+</html>

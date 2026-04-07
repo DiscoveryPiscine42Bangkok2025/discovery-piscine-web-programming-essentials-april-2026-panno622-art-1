@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="backgrooud.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="button">
+        <button id="colorBtn">Click me pls!</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 2. ฟังก์ชันสำหรับสร้างสีแบบสุ่ม (เหมือนเดิมแต่เรียกใช้แบบ jQuery ได้)
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            // 3. กำหนดเหตุการณ์เมื่อคลิกปุ่ม โดยใช้ Syntax ของ jQuery
+            $('#colorBtn').on('click', function() {
+                const newColor = getRandomColor();
+                
+                // 4. เปลี่ยนสีพื้นหลังของ body
+                $('body').css('background-color', newColor);
+            });
+        });
+    </script>
+</body>
+</html>
