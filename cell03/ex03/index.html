@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple To-Do List</title>
+    <style>
+        /* ตกแต่งเล็กน้อยเพื่อให้เห็นเป็นกรอบสี่เหลี่ยมตามที่ต้องการ */
+        #ft_list div {
+            border: 2px solid #333;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #ft_list div:hover {
+            background-color: #ffcdd2; /* สีแดงอ่อนตอนจะลบ */
+        }
+    </style>
+</head>
+<body>
+
+    <button id="new">New</button>
+    <div id="ft_list"></div>
+
+    <script src="todo.js"></script>
+</body>
+</html>
